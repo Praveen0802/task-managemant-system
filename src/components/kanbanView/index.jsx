@@ -22,7 +22,7 @@ const KanbanView = () => {
   const [taskView, setTaskView] = useState("");
   const [taskDetails, setTaskDetails] = useState("");
   const [searchValue, setSearchValue] = useState("");
-
+  console.log(process.env.NEXT_PUBLIC_MONGO_URL,'process.env.NEXT_PUBLIC_MONGO_URL')
   const getTaskFromApi = async () => {
     try {
       const fetchValues = await fetchTaskDetails();

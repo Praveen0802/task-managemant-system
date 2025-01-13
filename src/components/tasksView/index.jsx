@@ -72,7 +72,7 @@ const TasksView = () => {
     const value = e.target.value;
     setSearchValue(value);
     if (!value) {
-      getTaskFromApi();
+      getTaskFromApi(true);
     } else {
       const filteredTasks = Object.keys(tasks).reduce((acc, key) => {
         acc[key] = tasks[key].filter((task) =>

@@ -15,14 +15,13 @@ const TaskContext = createContext();
 
 export const useTaskContext = () => useContext(TaskContext);
 
-const KanbanView = () => {
+const TasksView = () => {
   const initialTasks = { todo: [], inprogress: [], done: [] };
   const [tasks, setTasks] = useState(initialTasks);
   const [addTask, setAddTask] = useState(false);
   const [taskView, setTaskView] = useState("");
   const [taskDetails, setTaskDetails] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  console.log(process.env.NEXT_PUBLIC_MONGO_URL,'process.env.NEXT_PUBLIC_MONGO_URL')
   const getTaskFromApi = async () => {
     try {
       const fetchValues = await fetchTaskDetails();
@@ -42,16 +41,16 @@ const KanbanView = () => {
   useEffect(() => {
     getTaskFromApi();
   }, []);
-
   const moveTask = async (task, from, to) => {
-    if (from == to) return;
+    // if (from == to) return;
     const { _id, status, ...rest } = task;
     const updatePayload = {
       ...rest,
       status: to,
       id: _id,
     };
-    setTasks((prevTasks) => {
+
+    await setTasks((prevTasks) => {
       const fromColumn = [...prevTasks[from]];
       const toColumn = [...prevTasks[to]];
       fromColumn.splice(fromColumn.indexOf(task), 1);
@@ -118,7 +117,7 @@ const KanbanView = () => {
                 + Add New Task
               </button>
             </div>
-            <div className="flex flex-col gap-1 h-full">
+            <div className="flex flex-col gap-3 h-full">
               <input
                 className="w-full border border-gray-300 rounded-md p-2 outline-none"
                 placeholder="Enter the task name to search"
@@ -160,4 +159,4 @@ const KanbanView = () => {
   );
 };
 
-export default KanbanView;
+export default TasksView;

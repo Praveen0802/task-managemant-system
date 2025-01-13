@@ -44,3 +44,8 @@ export const formQuestions = [
 export const checkEmptyObject = (object) => {
   return Object.keys(object).length === 0;
 };
+
+export const capitalizeFirstChar = (string) => {
+  if (!string) return "";
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};

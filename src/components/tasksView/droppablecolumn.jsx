@@ -4,13 +4,15 @@ import { useDrop } from "react-dnd";
 const DroppableColumn = ({ columnId, tasks, itemTypes, moveTask, accept }) => {
   const [, drop] = useDrop(() => ({
     accept,
-    drop: (item) => moveTask(item.task, item.from, columnId),
+    drop: (item) => {
+      moveTask(item.task, item.from, columnId);
+    },
   }));
 
   return (
     <div
       ref={drop}
-      className="flex flex-col w-1/3 bg-gray-100 p-4 max-md:min-w-[300px] shadow-md border border-gray-200"
+      className="flex flex-col w-1/3 bg-gray-100 p-4 max-md:min-w-[300px]  shadow-md border border-gray-200"
     >
       <div className="flex gap-2 items-center mb-4">
         <div
@@ -26,10 +28,10 @@ const DroppableColumn = ({ columnId, tasks, itemTypes, moveTask, accept }) => {
           {columnId}
         </p>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 md:h-[70vh] overflow-scroll">
         {tasks.map((task, index) => (
           <DraggableTask
-            key={index}
+            key={task?._id}
             task={task}
             index={index}
             moveTask={moveTask}

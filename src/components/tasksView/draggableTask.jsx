@@ -1,15 +1,19 @@
 import { useDrag } from "react-dnd";
 import { useTaskContext } from ".";
+import { capitalizeFirstChar } from "@/utils/helper";
 
 const DraggableTask = ({ task, index, itemTypes, moveTask, columnId }) => {
   const { setAddTask, setTaskView, setTaskDetails } = useTaskContext();
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: itemTypes.TASK,
-    item: { task, from: columnId },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
+  const [{ isDragging }, drag] = useDrag(() => {
+    const item = { taskId: task._id, task, from: columnId };
+    return {
+      type: itemTypes.TASK,
+      item,
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    };
+  });
 
   return (
     <div
@@ -18,7 +22,7 @@ const DraggableTask = ({ task, index, itemTypes, moveTask, columnId }) => {
         setTaskView("view");
         setTaskDetails({
           ...task,
-          status: { label: columnId, value: columnId },
+          status: { label: capitalizeFirstChar(columnId), value: columnId },
         });
         setAddTask(true);
       }}

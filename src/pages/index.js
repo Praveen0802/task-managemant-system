@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import KanbanView from "../components/kanbanView";
+import TasksView from "@/components/tasksView";
 
 
 const geistSans = Geist({
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} `}>
-      <KanbanView />
+      <TasksView />
     </div>
   );
 }

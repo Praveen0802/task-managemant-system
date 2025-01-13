@@ -59,7 +59,7 @@ const AddTaskForm = ({ onClose, title = "", taskView, showEditIcon }) => {
   return (
     <div className="bg-[#F2F4F6] m-3 flex flex-col gap-4 rounded-md p-3 h-[97vh]">
       <div className="flex justify-between items-center">
-        <p className="text-[16px] font-semibold ">{title}</p>
+        <p className="text-[16px] font-semibold ">{editClick ? "Edit Task" : title}</p>
         <div className="flex gap-3 items-center">
           {showEditIcon && (
             <>
@@ -71,10 +71,10 @@ const AddTaskForm = ({ onClose, title = "", taskView, showEditIcon }) => {
                 className={`${
                   editClick
                     ? "bg-gray-400 p-1 rounded-md cursor-not-allowed"
-                    : ""
+                    : "cursor-pointer"
                 }`}
               >
-                <IconStore.editPencil className="size-5" />
+                <IconStore.editPencil className="size-5 " />
               </div>
               {editClick && (
                 <p

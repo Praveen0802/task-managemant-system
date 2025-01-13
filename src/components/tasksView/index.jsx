@@ -6,6 +6,7 @@ import RightModalViewWrapper from "../rightModalViewWrapper";
 import axios from "axios";
 import { checkEmptyObject } from "@/utils/helper";
 import { fetchTaskDetails, updateTask } from "@/utils/request";
+import Spinner from "../spinner";
 
 const ItemTypes = {
   TASK: "task",
@@ -22,8 +23,10 @@ const TasksView = () => {
   const [taskView, setTaskView] = useState("");
   const [taskDetails, setTaskDetails] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const getTaskFromApi = async () => {
+  const [pageLoader, setPageLoader] = useState(false);
+  const getTaskFromApi = async (loader) => {
     try {
+      if (loader) setPageLoader(true);
       const fetchValues = await fetchTaskDetails();
       const updatedTasks = fetchValues?.reduce((acc, task) => {
         if (!acc[task.status]) {
@@ -33,13 +36,14 @@ const TasksView = () => {
         return acc;
       }, {});
       setTasks({ ...initialTasks, ...updatedTasks });
+      setPageLoader(false);
     } catch (err) {
       console.log(err, "generated error");
     }
   };
 
   useEffect(() => {
-    getTaskFromApi();
+    getTaskFromApi(true);
   }, []);
   const moveTask = async (task, from, to) => {
     // if (from == to) return;
@@ -100,6 +104,8 @@ const TasksView = () => {
         popupClose,
       }}
     >
+      {pageLoader && <Spinner className="absolute w-full h-full  bg-black/30 " />}
+
       <div>
         <DndProvider backend={HTML5Backend}>
           <div className="p-4 h-[100vh] flex flex-col gap-4">

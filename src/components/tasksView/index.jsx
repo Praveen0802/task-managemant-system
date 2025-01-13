@@ -46,14 +46,14 @@ const TasksView = () => {
     getTaskFromApi(true);
   }, []);
   const moveTask = async (task, from, to) => {
-    // if (from == to) return;
+   
     const { _id, status, ...rest } = task;
     const updatePayload = {
       ...rest,
       status: to,
       id: _id,
     };
-
+    if (from == to) return;
     await setTasks((prevTasks) => {
       const fromColumn = [...prevTasks[from]];
       const toColumn = [...prevTasks[to]];

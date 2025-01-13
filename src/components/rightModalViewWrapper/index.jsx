@@ -6,7 +6,7 @@ const RightModalViewWrapper = ({ show, onClose, title, taskView }) => {
   const addView = taskView == "add";
   const viewOnly = taskView == "view";
   return (
-    <CustomModal show={show} onClose={onClose} outSideClickClose={true}>
+    <CustomModal show={show} onClose={onClose} outSideClickClose={false}>
       <div className="absolute bg-white md:w-[500px] w-full right-0 top-0 h-full ">
         <AddTaskForm
           onClose={onClose}
